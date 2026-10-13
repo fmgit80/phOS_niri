@@ -3,7 +3,7 @@ FROM scratch AS ctx
 COPY build_files /
 COPY system_files /system_files
 
-FROM quay.io/fedora-ostree-desktops/sway-atomic:latest
+FROM quay.io/fedora-ostree-desktops/sway-atomic:44
 
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
