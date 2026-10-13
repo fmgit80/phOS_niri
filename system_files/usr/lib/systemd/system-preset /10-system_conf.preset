@@ -1,2 +1,3 @@
 disable wpa_supplicant.service
 enable iwd.service
+enable podman.socket
