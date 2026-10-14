@@ -1,0 +1,11 @@
+[Unit]
+Description=Sincronizzazione Dotfiles personalizzati Distro
+Before=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/phos-niri-dotfiles-sync.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target

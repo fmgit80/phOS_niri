@@ -41,6 +41,9 @@ dnf install -y \
 # --- NIRI AND NOCTALIA ---
 ##dnf copr enable -y avengemedia/danklinux
 ##dnf copr enable -y avengemedia/dms
+dnf remove -y \
+    waybar \
+    sway
 dnf install -y \
     xdg-utils \
     xdg-desktop-portal \
@@ -82,6 +85,5 @@ dnf install -y \
     docker-compose-plugin \
     docker-ce-rootless-extras
 
-# Imposta i permessi corretti per gli script della distro
-#chmod +x /etc/profile.d/wayland-variables.sh
-#chmod +x /usr/libexec/distro-first-run.sh
+# Imposta i permessi corretti per gli script di sync dotfiles
+chmod +x /usr/bin/phos-niri-dotfiles-sync.sh
