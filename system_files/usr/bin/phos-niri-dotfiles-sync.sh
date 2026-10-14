@@ -1,6 +1,6 @@
 #!/bin/bash
 
-USER_CONFIG="$HOME/.config"
+USER_CONFIG="/var$HOME/.config"
 SYS_DEFAULTS="/usr/share/phos-niri/dotfiles"
 
 # Assicuriamoci che la cartella .config esista
