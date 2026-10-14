@@ -20,7 +20,39 @@ dnf -y install dnf-plugins-core
 dnf install -y \
     htop \
     nvtop \
-    fastfetch
+    fastfetch \
+    alacritty \
+    cliphist \
+    wl-clipboard
+
+# --- RETE, WI-FI & BLUETOOTH ---
+dnf install -y \
+    NetworkManager \
+    NetworkManager-wifi \
+    linux-firmware \
+    iwlwifi-mvm-firmware \
+    iwlwifi-dvm-firmware \
+    iwlwifi-mld-firmware \
+    iwlegacy-firmware \
+    bluez \
+    bluez-tools \
+    blueman
+
+# --- NIRI AND NOCTALIA ---
+##dnf copr enable -y avengemedia/danklinux
+##dnf copr enable -y avengemedia/dms
+dnf install -y \
+    xdg-utils \
+    xdg-desktop-portal \
+    xdg-desktop-portal-gtk \
+    xdg-desktop-portal-gnome \
+    xdg-desktop-portal-wlr \
+    gnome-keyring \
+    wayland-utils \
+    xwayland-satellite \
+    xorg-x11-server-Xwayland \
+    niri \
+    noctalia
 
 # --- VULKAN AND LLAMA-CPP ---
 dnf copr enable -y sneed/llama-cpp-vulkan
@@ -49,3 +81,7 @@ dnf install -y \
     docker-buildx-plugin \
     docker-compose-plugin \
     docker-ce-rootless-extras
+
+# Imposta i permessi corretti per gli script della distro
+#chmod +x /etc/profile.d/wayland-variables.sh
+#chmod +x /usr/libexec/distro-first-run.sh

@@ -2,6 +2,9 @@
 FROM scratch AS ctx
 COPY build_files /
 COPY system_files /system_files
+# Copia la configurazione dei portali all'interno di /usr/share per renderla
+# un default di sistema pulito ed evitare conflitti futuri con l'utente in /etc
+#COPY config/etc/xdg-desktop-portal/niri-portals.conf /usr/share/xdg-desktop-portal/niri-portals.conf
 
 FROM quay.io/fedora-ostree-desktops/sway-atomic:44
 
