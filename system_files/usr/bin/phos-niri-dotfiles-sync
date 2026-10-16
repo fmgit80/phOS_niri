@@ -1,0 +1,63 @@
+#!/bin/bash
+# system_files/usr/bin/phos-niri-dotfiles-sync
+
+USER_CONFIG="$HOME/.config"
+SYS_DEFAULTS="/usr/share/phos-niri/dotfiles"
+
+# Assicuriamoci che la cartella .config di base esista nella home dell'utente
+mkdir -p "$USER_CONFIG"
+
+# Funzione interna per inserire in modo sicuro lo spawn di noctalia nel config.kdl esistente (Scenario 4)
+inject_spawn_noctalia() {
+    local niri_config="$USER_CONFIG/niri/config.kdl"
+
+    # Se il file esiste ma non contiene la stringa noctalia, la aggiungiamo
+    if [ -f "$niri_config" ] && ! grep -q "noctalia" "$niri_config"; then
+        echo "[Phos Sync] Inserimento di spawn-at-startup \"noctalia\" in config.kdl..."
+        if grep -q "spawn-at-startup {" "$niri_config"; then
+            # Se esiste già un blocco multilinea, inseriamo noctalia subito dopo l'apertura
+            sed -i '/spawn-at-startup {/a \    "noctalia"' "$niri_config"
+        else
+            # Altrimenti lo appendiamo in fondo al file in modo pulito
+            echo -e "\nspawn-at-startup \"noctalia\"" >> "$niri_config"
+        fi
+    else
+        echo "[Phos Sync] Noctalia è già configurato in Niri o il file config.kdl è mancante."
+    fi
+}
+
+# --- ANALISI DEGLI SCENARI IN RUNTIME ---
+
+# SCENARIO 1 & 5: L'utente esiste (o è appena stato creato vuoto) ma non ha né niri né noctalia
+if [ ! -d "$USER_CONFIG/niri" ] && [ ! -d "$USER_CONFIG/noctalia" ]; then
+    echo "[Phos Sync] Nessun dotfile trovato. Copio i dotfile completi di Phos Niri..."
+    cp -r "$SYS_DEFAULTS/niri" "$USER_CONFIG/"
+    cp -r "$SYS_DEFAULTS/noctalia" "$USER_CONFIG/"
+
+# SCENARIO 2: Esistono i dotfile di Niri ma MANCA Noctalia
+elif [ -d "$USER_CONFIG/niri" ] && [ ! -d "$USER_CONFIG/noctalia" ]; then
+    echo "[Phos Sync] Rilevato Niri ma manca Noctalia. Aggiorno e creo backup..."
+
+    # Se esiste un config.kdl facciamo il backup richiesto
+    if [ -f "$USER_CONFIG/niri/config.kdl" ]; then
+        cp "$USER_CONFIG/niri/config.kdl" "$USER_CONFIG/niri/config.kdl.bak"
+        echo "[Phos Sync] Backup creato: config.kdl.bak"
+    fi
+
+    # Copiamo il config.kdl pulito della distro sopra quello vecchio
+    cp "$SYS_DEFAULTS/niri/config.kdl" "$USER_CONFIG/niri/config.kdl"
+    # Copiamo l'intera cartella dei dotfile di noctalia
+    cp -r "$SYS_DEFAULTS/noctalia" "$USER_CONFIG/"
+
+# SCENARIO 3: Esistono i dotfile di Noctalia ma MANCA Niri
+elif [ ! -d "$USER_CONFIG/niri" ] && [ -d "$USER_CONFIG/noctalia" ]; then
+    echo "[Phos Sync] Rilevato Noctalia ma manca Niri. Copio la cartella niri di default..."
+    cp -r "$SYS_DEFAULTS/niri" "$USER_CONFIG/"
+
+# SCENARIO 4: Esistono sia i dotfile di Niri che di Noctalia
+elif [ -d "$USER_CONFIG/niri" ] && [ -d "$USER_CONFIG/noctalia" ]; then
+    echo "[Phos Sync] Entrambi i componenti sono presenti. Verifico l'autostart di Noctalia..."
+    inject_spawn_noctalia
+fi
+
+echo "[Phos Sync] Sincronizzazione completata con successo."

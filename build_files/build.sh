@@ -22,6 +22,7 @@ dnf install -y \
     nvtop \
     fastfetch \
     alacritty \
+    xed \
     cliphist \
     wl-clipboard
 
@@ -35,8 +36,7 @@ dnf install -y \
     iwlwifi-mld-firmware \
     iwlegacy-firmware \
     bluez \
-    bluez-tools \
-    blueman
+    bluez-tools
 
 # --- NIRI AND NOCTALIA ---
 ##dnf copr enable -y avengemedia/danklinux
@@ -82,5 +82,8 @@ dnf install -y \
     docker-compose-plugin \
     docker-ce-rootless-extras
 
-# Imposta i permessi corretti per gli script di sync dotfiles
-chmod +x /usr/bin/phos-niri-dotfiles-sync.sh
+# Imposta i permessi corretti per gli script di sync dotfiles e forza l'attivazione del sync dotfiles all'interno del target grafico globale utente
+chmod +x /usr/bin/phos-niri-dotfiles-sync
+mkdir -p /usr/lib/systemd/user/graphical-session.target.wants
+ln -sf /usr/lib/systemd/user/dotfiles.service /usr/lib/systemd/user/graphical-session.target.wants/dotfiles.service
+

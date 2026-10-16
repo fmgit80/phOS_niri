@@ -1,6 +1,4 @@
-## Config.kdl Personale
-prefer-no-csd
-
+// Config.kdl Personale
 input {
     keyboard {
         repeat-rate 35
@@ -123,9 +121,8 @@ layout {
     }
 }
 
-spawn-at-startup "systemctl" "--user" "start" "--now" "niri-polkit.service"
 spawn-at-startup "noctalia"
-spawn-at-startup "netbird-ui"
+//spawn-at-startup "netbird-ui"
 
 hotkey-overlay {
     skip-at-startup
@@ -195,13 +192,13 @@ binds {
 
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+Return hotkey-overlay-title="Open a Terminal: konsole" { spawn-sh "flatpak run org.kde.konsole"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: Alacritty" { spawn "alacritty"; }
     Mod+Space hotkey-overlay-title="Run Quickshell Menu" { spawn-sh "noctalia msg panel-toggle launcher"; }
-    Mod+Ctrl+A hotkey-overlay-title="Run Kate" { spawn-sh "flatpak run org.kde.kate"; }
-    Mod+Ctrl+E hotkey-overlay-title="Open OnlyOffice" { spawn-sh "flatpak run org.onlyoffice.desktopeditors"; }
-    Mod+Ctrl+U hotkey-overlay-title="Run Okular" { spawn-sh "flatpak run org.kde.okular"; }
-    Mod+Ctrl+O hotkey-overlay-title="Run Obsidian" { spawn-sh "flatpak run md.obsidian.Obsidian"; }
-    Mod+Ctrl+G hotkey-overlay-title="Run Gimp" { spawn-sh "flatpak run org.gimp.GIMP"; }
+    //Mod+Ctrl+A hotkey-overlay-title="Run Xed" { spawn "xed"; }
+    //Mod+Ctrl+E hotkey-overlay-title="Open OnlyOffice" { spawn-sh "flatpak run org.onlyoffice.desktopeditors"; }
+    //Mod+Ctrl+U hotkey-overlay-title="Run Okular" { spawn-sh "flatpak run org.kde.okular"; }
+    //Mod+Ctrl+O hotkey-overlay-title="Run Obsidian" { spawn-sh "flatpak run md.obsidian.Obsidian"; }
+    //Mod+Ctrl+G hotkey-overlay-title="Run Gimp" { spawn-sh "flatpak run org.gimp.GIMP"; }
 
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
