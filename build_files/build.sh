@@ -82,6 +82,10 @@ dnf install -y \
     docker-compose-plugin \
     docker-ce-rootless-extras
 
+dnf remove -y \
+    blueman \
+    network-manager-applet
+
 # Imposta i permessi corretti per gli script di sync dotfiles e forza l'attivazione del sync dotfiles all'interno del target grafico globale utente
 chmod +x /usr/bin/phos-niri-dotfiles-sync
 mkdir -p /usr/lib/systemd/user/graphical-session.target.wants
