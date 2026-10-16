@@ -82,6 +82,11 @@ dnf install -y \
     docker-compose-plugin \
     docker-ce-rootless-extras
 
+# --- DISTROBOX ---
+dnf install -y \
+    distrobox
+
+# --- CLEANING ---
 dnf remove -y \
     blueman \
     network-manager-applet
