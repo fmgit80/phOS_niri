@@ -87,6 +87,7 @@ dnf remove -y \
     network-manager-applet
 
 # Imposta i permessi corretti per gli script di sync dotfiles e forza l'attivazione del sync dotfiles all'interno del target grafico globale utente
+ln -s /dev/null /usr/lib/systemd/system/wpa_supplicant.service
 chmod +x /usr/bin/phos-niri-dotfiles-sync
 mkdir -p /usr/lib/systemd/user/graphical-session.target.wants
 ln -sf /usr/lib/systemd/user/dotfiles.service /usr/lib/systemd/user/graphical-session.target.wants/dotfiles.service
