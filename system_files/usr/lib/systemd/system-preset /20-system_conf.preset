@@ -1,5 +1,0 @@
-disable wpa_supplicant.service
-enable NetworkManager.service
-enable iwd.service
-enable podman.socket
-enable podman.service

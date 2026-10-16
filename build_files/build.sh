@@ -41,6 +41,7 @@ dnf install -y \
 # --- NIRI AND NOCTALIA ---
 ##dnf copr enable -y avengemedia/danklinux
 ##dnf copr enable -y avengemedia/dms
+dnf remove -y waybar
 dnf install -y \
     xdg-utils \
     xdg-desktop-portal \

@@ -1,0 +1,2 @@
+enable podman.socket
+enable podman.service
