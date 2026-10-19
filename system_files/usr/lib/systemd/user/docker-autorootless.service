@@ -1,12 +1,12 @@
 [Unit]
 Description=Verifica e Inizializzazione Automatica Docker Rootless
-# Verifica che l'ambiente grafico sia avviato
-After=graphical-session.target
+After=default.target
 
 [Service]
 Type=oneshot
+ExecStartPre=/usr/bin/sleep 3
 ExecStart=/usr/bin/docker-autorootless
 RemainAfterExit=yes
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=default.target
