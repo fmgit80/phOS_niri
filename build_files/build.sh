@@ -12,6 +12,7 @@ sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 # --- IWD ---
 dnf remove -y wpa_supplicant
 dnf install -y iwd
+ln -s /dev/null /usr/lib/systemd/system/wpa_supplicant.service
 
 # --- COPR ---
 dnf -y install dnf-plugins-core
@@ -91,10 +92,18 @@ dnf remove -y \
     blueman \
     network-manager-applet
 
-# Imposta i permessi per lo script di sync dotfiles e forza l'attivazione del sync dotfiles all'interno del target grafico globale utente
-ln -s /dev/null /usr/lib/systemd/system/wpa_supplicant.service
+# Imposta i permessi per gli script personalizzati in runtime
 chmod +x /usr/bin/phos-niri-dotfiles-sync
-mkdir -p /usr/lib/systemd/user/graphical-session.target.wants
-ln -sf /usr/lib/systemd/user/dotfiles.service /usr/lib/systemd/user/graphical-session.target.wants/dotfiles.service
-# Imposta i permessi per lo script di avvio di docker rootless
 chmod +x /usr/bin/docker-autorootless
+
+# Crea i link simbolici nel target grafico globale utente
+USER_WANTS_DIR="/usr/lib/systemd/user/graphical-session.target.wants"
+mkdir -p "$USER_WANTS_DIR"
+for service_file in /usr/lib/systemd/user/*.service; do
+    service_name=$(basename "$service_file")
+    echo "Abilitazione globale di: $service_name"
+    ln -sf "/usr/lib/systemd/user/$service_name" "$USER_WANTS_DIR/$service_name"
+done
+
+#ln -sf /usr/lib/systemd/user/dotfiles.service /usr/lib/systemd/user/graphical-session.target.wants/dotfiles.service
+#ln -sf /usr/lib/systemd/user/docker-autorootless.service /usr/lib/systemd/user/graphical-session.target.wants/docker-autorootless.service

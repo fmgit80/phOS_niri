@@ -1,12 +1,12 @@
 [Unit]
 Description=Verifica e Inizializzazione Automatica Docker Rootless
-After=default.target
+PartOf=graphical-session.target
+After=graphical-session.target
 
 [Service]
 Type=oneshot
-ExecStartPre=/usr/bin/sleep 3
 ExecStart=/usr/bin/docker-autorootless
 RemainAfterExit=yes
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
