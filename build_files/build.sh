@@ -99,7 +99,7 @@ chmod +x /usr/bin/docker-autorootless
 # Crea i link simbolici nel target grafico globale utente
 USER_WANTS_DIR="/usr/lib/systemd/user/graphical-session.target.wants"
 mkdir -p "$USER_WANTS_DIR"
-for service_file in /usr/lib/systemd/user/*.service; do
+for service_file in /ctx/system_files/./usr/lib/systemd/user/*.service; do
     service_name=$(basename "$service_file")
     echo "Abilitazione globale di: $service_name"
     ln -sf "/usr/lib/systemd/user/$service_name" "$USER_WANTS_DIR/$service_name"
