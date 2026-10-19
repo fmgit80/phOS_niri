@@ -1,0 +1,6 @@
+[window]
+opacity = 0.90
+blur = true
+
+[env]
+WINIT_UNIX_BACKEND = "wayland"

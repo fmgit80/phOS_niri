@@ -1,4 +1,6 @@
 // Config.kdl Personale
+prefer-no-csd
+
 input {
     keyboard {
         repeat-rate 35
@@ -146,6 +148,10 @@ workspace "Music" {
 workspace "Games" {
 }
 workspace "Code" {
+}
+
+window-rule {
+    draw-border-with-background false
 }
 
 window-rule {
