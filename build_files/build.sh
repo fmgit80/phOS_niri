@@ -124,5 +124,5 @@ for service_file in /ctx/system_files/usr/lib/systemd/user/*.service; do
     ln -sf "/usr/lib/systemd/user/$service_name" "$USER_WANTS_DIR/$service_name"
 done
 
-# Aggiunge Flathub come repository globale di sistema (accessibile a tutti gli utenti)
+# Aggiunge Flathub come repository globale di sistema
 flatpak remote-add --system --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo

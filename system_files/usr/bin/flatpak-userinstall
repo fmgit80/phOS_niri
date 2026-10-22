@@ -20,7 +20,7 @@ APPS=(
 )
 
 # 2. Configurazione Flathub a livello utente
-flatpak remote-add --user --if-not-exists flathub https://flathub.org
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # 3. Ciclo di controllo e installazione
 for app in "${APPS[@]}"; do
