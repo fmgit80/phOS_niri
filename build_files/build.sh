@@ -11,9 +11,10 @@ sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
 # --- Installazione repo RPM fusion ---
 FEDORA_VERSION=$(sh -c '. /etc/os-release; echo $VERSION_ID')
-rpm --import https://mirrors.rpmfusion.org/free/fedora/RPM-GPG-KEY-rpmfusion-free-fedora-${FEDORA_VERSION}
-rpm --import https://mirrors.rpmfusion.org/nonfree/fedora/RPM-GPG-KEY-rpmfusion-nonfree-fedora-${FEDORA_VERSION}
-dnf install -y \
+dnf install -y distribution-gpg-keys
+rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-fedora-${FEDORA_VERSION}
+rpmkeys --import /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-${FEDORA_VERSION}
+dnf --setopt=localpkg_gpgcheck=1 install -y \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-${FEDORA_VERSION}.noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-${FEDORA_VERSION}.noarch.rpm
 
