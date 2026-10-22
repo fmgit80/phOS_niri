@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=phOS Niri
 Comment=Niri con sincronizzazione automatica dei dotfiles di phOS
-Exec=bash -c '/usr/bin/phos-niri-dotfiles-sync && exec niri-session "$@"' _
+Exec=Exec=/usr/bin/niri-custom-session
 Type=Application
 DesktopNames=niri
