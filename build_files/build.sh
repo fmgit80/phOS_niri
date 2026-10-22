@@ -125,7 +125,6 @@ for service_file in /ctx/system_files/usr/lib/systemd/user/*.service; do
 done
 
 # Aggiunge Flathub come repository globale di sistema
-flatpak remote-delete flathub
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 
 # Rename Distro for GRUB
