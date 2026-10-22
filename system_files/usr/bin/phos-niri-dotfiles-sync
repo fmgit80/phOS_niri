@@ -62,10 +62,32 @@ elif [ -d "$USER_CONFIG/niri" ] && [ -d "$USER_CONFIG/noctalia" ]; then
     inject_spawn_noctalia
 fi
 
-# Ricarico la configurazione al volo per applicare le modifiche applicate al primo avvio
-if command -v niri &> /dev/null; then
-    echo "[Phos Sync] Invio comando di reload a Niri..."
+# Ricarica la configurazione se Niri è già effettivamente in esecuzione
+if [ -n "$WAYLAND_DISPLAY" ] && command -v niri &> /dev/null; then
+    echo "[Phos Sync] Niri è già attivo, invio comando di reload..."
     niri msg action load-config-file
+else
+    echo "[Phos Sync] Primo avvio o sessione non attiva. Scrittura dotfiles completata."
 fi
 
 echo "[Phos Sync] Sincronizzazione completata con successo."
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

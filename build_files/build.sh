@@ -34,7 +34,8 @@ dnf install -y \
     alacritty \
     xed \
     cliphist \
-    wl-clipboard
+    wl-clipboard \
+    mediawriter
 
 # --- RETE, WI-FI & BLUETOOTH ---
 dnf install -y \
