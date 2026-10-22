@@ -1,3 +1,0 @@
-enable podman.socket
-enable podman.service
-enable docker-autorootless.service
