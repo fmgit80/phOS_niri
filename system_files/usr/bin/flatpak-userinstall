@@ -1,0 +1,40 @@
+#!/bin/bash
+# Installazione automatica delle app Flatpak
+
+echo "Controllo e installazione delle applicazioni Flatpak utente..."
+
+# 1. Array dei Flatpak da installare
+APPS=(
+    "io.github.kolunmi.Bazaar"
+    "io.github.thetumultuousunicornofdarkness.cpu-x"
+    "io.missioncenter.MissionCenter"
+    "org.gnome.Evince"
+    "com.github.xournalpp.xournalpp"
+    "org.freecad.FreeCAD"
+    "com.bambulab.BambuStudio"
+    "org.onlyoffice.desktopeditors"
+    "io.mpv.Mpv"
+    "org.gnome.eog"
+    "com.logseq.Logseq"
+)
+
+# 2. Configurazione Flathub a livello utente
+flatpak remote-add --user --if-not-exists flathub https://flathub.org
+
+# 3. Ciclo di controllo e installazione
+for app in "${APPS[@]}"; do
+    # Verifica applicazione già installata (cerca sia in --system che in --user)
+    if flatpak list --columns=application | grep -Fxq "$app"; then
+        echo "[OK] $app presente."
+    else
+        echo "[INFO] $app non presente. Installazione in corso..."
+        flatpak install --user -y flathub "$app"
+        if [ $? -eq 0 ]; then
+            echo "[SUCCESS] $app installato con successo."
+        else
+            echo "[ERROR] Errore durante l'installazione di $app" >&2
+        fi
+    fi
+done
+
+echo "Processo di controllo e installazione Flatpak completato."

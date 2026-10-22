@@ -1,0 +1,19 @@
+[Unit]
+Description=Installazione e Aggiornamento Flatpak Custom in Background
+PartOf=graphical-session.target
+After=graphical-session.target
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/flatpak-userinstall
+# Permette al processo di completare il download anche se richiede molto tempo
+TimeoutStartSec=0
+# Gestione ottimale delle risorse: assegna una priorità di CPU più bassa (I/O)
+Nice=19
+CPUSchedulingPolicy=idle
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=graphical-session.target
