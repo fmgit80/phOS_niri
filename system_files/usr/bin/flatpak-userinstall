@@ -8,6 +8,7 @@ APPS=(
     "io.github.kolunmi.Bazaar"
     "io.github.thetumultuousunicornofdarkness.cpu-x"
     "io.missioncenter.MissionCenter"
+    "io.github.dvlv.boxbuddyrs"
     "org.gnome.Evince"
     "com.github.xournalpp.xournalpp"
     "org.freecad.FreeCAD"
