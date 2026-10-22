@@ -19,7 +19,10 @@ APPS=(
     "com.logseq.Logseq"
 )
 
-# 2. Ciclo di controllo e installazione
+# Aggiunge Flathub come repository utente
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Ciclo di controllo e installazione
 for app in "${APPS[@]}"; do
     # Verifica applicazione già installata (cerca sia in --system che in --user)
     if flatpak list --columns=application | grep -Fxq "$app"; then
