@@ -35,7 +35,8 @@ dnf install -y \
     xed \
     cliphist \
     wl-clipboard \
-    mediawriter
+    mediawriter \
+    smartmontools
 
 # --- RETE, WI-FI & BLUETOOTH ---
 dnf install -y \
@@ -96,15 +97,6 @@ dnf install -y \
     distrobox
 
 # --- NETBIRD ---
-tee /etc/yum.repos.d/netbird.repo <<EOF
-[netbird]
-name=netbird
-baseurl=https://pkgs.netbird.io/yum/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.netbird.io/yum/repodata/repomd.xml.key
-repo_gpgcheck=1
-EOF
 dnf config-manager addrepo --from-repofile=/etc/yum.repos.d/netbird.repo
 dnf install -y \
     netbird \
@@ -117,6 +109,7 @@ dnf install -y \
 dnf remove -y \
     blueman \
     network-manager-applet
+rm /usr/share/wayland-sessions/niri.desktop
 
 # --- USER SERVICE ---
 # Imposta i permessi per gli script personalizzati in runtime
