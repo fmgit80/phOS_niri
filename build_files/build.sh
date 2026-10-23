@@ -97,8 +97,9 @@ dnf install -y \
     distrobox
 
 # --- NETBIRD ---
+dnf install -y --setopt=tsflags=noscripts \
+    netbird
 dnf install -y \
-    netbird \
     netbird-ui \
     gtk4 \
     webkitgtk6.0 \
