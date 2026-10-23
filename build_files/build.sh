@@ -4,8 +4,6 @@ set -ouex pipefail
 
 cp -avf "/ctx/system_files"/. /
 
-## Configurazioni di sistema
-
 # --- DNF SPEEDUP ---
 sed -i '/^\[main\]/a max_parallel_downloads=10' /etc/dnf/dnf.conf
 
@@ -25,6 +23,8 @@ ln -s /dev/null /usr/lib/systemd/system/wpa_supplicant.service
 
 # --- COPR ---
 dnf -y install dnf-plugins-core
+##dnf copr enable -y avengemedia/danklinux
+##dnf copr enable -y avengemedia/dms
 
 # --- OTHER ---
 dnf install -y \
@@ -50,8 +50,6 @@ dnf install -y \
     bluez-tools
 
 # --- NIRI AND NOCTALIA ---
-##dnf copr enable -y avengemedia/danklinux
-##dnf copr enable -y avengemedia/dms
 dnf install -y \
     xdg-utils \
     xdg-desktop-portal \
@@ -97,15 +95,31 @@ dnf install -y \
 dnf install -y \
     distrobox
 
+# --- NETBIRD ---
+tee /etc/yum.repos.d/netbird.repo <<EOF
+[netbird]
+name=netbird
+baseurl=https://pkgs.netbird.io/yum/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.netbird.io/yum/repodata/repomd.xml.key
+repo_gpgcheck=1
+EOF
+dnf config-manager addrepo --from-repofile=/etc/yum.repos.d/netbird.repo
+dnf install -y \
+    netbird \
+    netbird-ui \
+    gtk4 \
+    webkitgtk6.0 \
+    xdg-utils
+
 # --- CLEANING ---
 dnf remove -y \
     blueman \
     network-manager-applet
 
+# --- USER SERVICE ---
 # Imposta i permessi per gli script personalizzati in runtime
-##chmod +x /usr/bin/phos-niri-dotfiles-sync
-##chmod +x /usr/bin/docker-autorootless
-##for bash_file in /ctx/system_files/./usr/bin/*; do
 for bash_file in /ctx/system_files/usr/bin/*; do
     if [ -f "$bash_file" ]; then
         bash_name=$(basename "$bash_file")
@@ -117,7 +131,6 @@ done
 # Crea i link simbolici nel target grafico globale utente
 USER_WANTS_DIR="/usr/lib/systemd/user/graphical-session.target.wants"
 mkdir -p "$USER_WANTS_DIR"
-##for service_file in /ctx/system_files/./usr/lib/systemd/user/*.service; do
 for service_file in /ctx/system_files/usr/lib/systemd/user/*.service; do
     service_name=$(basename "$service_file")
     echo "Abilitazione globale di: $service_name"
@@ -130,7 +143,11 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 # Rename Distro for GRUB
 sed -i 's/^PRETTY_NAME=.*/PRETTY_NAME="Fedora Rolling (Niri Edition phOS)"/' /usr/lib/os-release
 
-
+# --- CLEANING IMAGE ---
+dnf clean all
+rm -rf /tmp/* /var/tmp/*
+rm -rf /run/dnf /run/selinux-policy
+rm -rf /var/lib/dnf
 
 
 

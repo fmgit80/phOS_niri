@@ -17,6 +17,12 @@ APPS=(
     "io.mpv.Mpv"
     "org.gnome.eog"
     "com.logseq.Logseq"
+    "org.kde.audiotube"
+    "org.kde.kamoso"
+    "org.kde.krita"
+    "org.kde.ark"
+    "org.kde.dragonplayer"
+    "org.kde.kjournaldbrowser"
 )
 
 # Aggiunge Flathub come repository utente
