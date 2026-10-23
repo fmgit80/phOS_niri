@@ -102,14 +102,16 @@ dnf install -y --setopt=tsflags=noscripts \
 dnf install -y \
     netbird-ui \
     gtk4 \
-    webkitgtk6.0 \
-    xdg-utils
+    webkitgtk6.0
 
 # --- CLEANING ---
 dnf remove -y \
     blueman \
     network-manager-applet
 rm /usr/share/wayland-sessions/niri.desktop
+
+# --- SYSTEM SERVICE ---
+ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/sshd.service
 
 # --- USER SERVICE ---
 # Imposta i permessi per gli script personalizzati in runtime

@@ -23,6 +23,7 @@ APPS=(
     "org.kde.ark"
     "org.kde.dragonplayer"
     "org.kde.kjournaldbrowser"
+    "com.bitwarden.desktop"
 )
 
 # Aggiunge Flathub come repository utente
