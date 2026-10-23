@@ -97,7 +97,6 @@ dnf install -y \
     distrobox
 
 # --- NETBIRD ---
-dnf config-manager addrepo --from-repofile=/etc/yum.repos.d/netbird.repo
 dnf install -y \
     netbird \
     netbird-ui \
