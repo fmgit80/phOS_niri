@@ -110,10 +110,7 @@ dnf remove -y \
     network-manager-applet
 rm /usr/share/wayland-sessions/niri.desktop
 
-# --- SYSTEM SERVICE ---
-ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/sshd.service
-
-# --- USER SERVICE ---
+# --- SCRIPT DA INIZIALIZZARE IN RUNTIME ---
 # Imposta i permessi per gli script personalizzati in runtime
 for bash_file in /ctx/system_files/usr/bin/*; do
     if [ -f "$bash_file" ]; then
@@ -123,6 +120,10 @@ for bash_file in /ctx/system_files/usr/bin/*; do
     fi
 done
 
+# --- SYSTEM SERVICE ---
+ln -s /usr/lib/systemd/system/sshd.service /etc/systemd/system/multi-user.target.wants/sshd.service
+
+# --- USER SERVICE ---
 # Crea i link simbolici nel target grafico globale utente
 USER_WANTS_DIR="/usr/lib/systemd/user/graphical-session.target.wants"
 mkdir -p "$USER_WANTS_DIR"
