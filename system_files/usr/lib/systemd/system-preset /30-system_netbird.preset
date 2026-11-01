@@ -1,1 +1,2 @@
+enable netbird-init.service
 enable netbird.service
