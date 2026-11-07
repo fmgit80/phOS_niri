@@ -36,7 +36,9 @@ dnf install -y \
     cliphist \
     wl-clipboard \
     mediawriter \
-    smartmontools
+    smartmontools \
+    fuse \
+    fuse-libs
 
 # --- RETE, WI-FI & BLUETOOTH ---
 dnf install -y \
